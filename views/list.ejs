@@ -1,0 +1,54 @@
+<html lang="en">
+
+<head>
+
+    <title>Student List</title>
+
+</head>
+
+<body>
+    <h2>All Students</h2>
+    <p><a href="/">Add New</a></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Student ID</th>
+                <th>Email</th>
+                <th>Course</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% students.forEach(student=> { %>
+                <tr>
+                    <td>
+                        <%= student.name %>
+                    </td>
+                    <td>
+                        <%= student.studentId %>
+                    </td>
+                    <td>
+                        <%= student.email %>
+                    </td>
+                    <td>
+                        <%= student.course %>
+                    </td>
+                    <td>
+                        <a href="/students/<%= student.id %>/edit">Update</a>
+                        <form action="/students/<%= student.id %>/delete" method="POST" style="display:inline">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+
+    <% if (students.length===0) { %>
+        <p>No students found.</p>
+        <% } %>
+</body>
+
+</html>
