@@ -7,14 +7,17 @@ import { z } from "zod";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+// create express app
 const app = express();
 const PORT = 3000;
 const prisma = new PrismaClient();
 
+// middleware
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 
+// validation
 const studentSchema = z.object({
   name: z.string().trim().min(1, "Name is required."),
   studentId: z.string().trim().min(1, "Student ID is required."),
@@ -26,6 +29,7 @@ const studentSchema = z.object({
   course: z.string().trim().optional().or(z.literal("")),
 });
 
+// api
 app.get("/", (req, res) => {
   res.render("home");
 });
@@ -78,6 +82,7 @@ app.post("/students/:id/delete", async (req, res) => {
   res.redirect("/students");
 });
 
+// start server
 app.listen(PORT, () =>
   console.log(`Server running at http://localhost:${PORT}`),
 );
