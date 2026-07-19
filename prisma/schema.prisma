@@ -16,3 +16,12 @@ model Student {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Subject {
+  id        Int      @id @default(autoincrement())
+  name      String
+  code      String   @unique
+  credits   Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
