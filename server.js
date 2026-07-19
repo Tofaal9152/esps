@@ -17,6 +17,8 @@ import {
   updateSubject,
   deleteSubject,
 } from "./controllers/subjectController.js";
+import { register, login, me } from "./controllers/authController.js";
+import { requireAuth } from "./middleware/auth.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -38,12 +40,17 @@ app.get("/students/:id/edit", editStudentForm);
 app.post("/students/:id/update", updateStudent);
 app.post("/students/:id/delete", deleteStudent);
 
+// auth api
+app.post("/api/auth/register", register);
+app.post("/api/auth/login", login);
+app.get("/api/auth/me", requireAuth, me);
+
 // subject api
 app.get("/api/subjects", listSubjects);
 app.get("/api/subjects/:id", getSubject);
-app.post("/api/subjects", createSubject);
-app.put("/api/subjects/:id", updateSubject);
-app.delete("/api/subjects/:id", deleteSubject);
+app.post("/api/subjects", requireAuth, createSubject);
+app.put("/api/subjects/:id", requireAuth, updateSubject);
+app.delete("/api/subjects/:id", requireAuth, deleteSubject);
 
 // start server
 app.listen(PORT, () =>

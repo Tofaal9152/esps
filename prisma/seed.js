@@ -14,6 +14,17 @@ async function main() {
 
   await prisma.student.createMany({ data: students });
   console.log(`Seeded ${students.length} students.`);
+
+  const subjects = [
+    { name: "Data Structures", code: "CSE201", credits: 3 },
+    { name: "Algorithms", code: "CSE202", credits: 3 },
+    { name: "Database Systems", code: "CSE303", credits: 3 },
+    { name: "Operating Systems", code: "CSE304", credits: 3 },
+    { name: "Computer Networks", code: "CSE305", credits: 3 },
+  ];
+
+  await prisma.subject.createMany({ data: subjects });
+  console.log(`Seeded ${subjects.length} subjects.`);
 }
 
 main()
